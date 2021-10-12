@@ -4,29 +4,29 @@ import "./App.css";
 import Login from "./components/LoginForm";
 import { Switch, Route } from "react-router-dom";
 import SignUp from "./components/SignUp";
-import DashBoard from "./Pages/dashboard";
 import CreateUser from "./Pages/CreateUser";
-import { useSelector, useDispatch } from "react-redux";
-import allActions from "./Redux";
+import ManagerDashBoard from "./Pages/mangerDashboard";
+import AdminDashBoard from "./Pages/adminDashboard";
+import UserDashBoard from "./Pages/userDashboard";
+// import { useSelector, useDispatch } from "react-redux";
+// import allActions from "./Redux";
 
 function App() {
-  const isLogged = useSelector((state) => state.loginReducer.isLoggedIn);
-  console.log("////", isLogged);
-  const manager = useSelector(
-    (state) => state.loginReducer.login.user.roles[0].name
-  );
-  console.log("////", manager);
-  const users = useSelector((state) => state.getUserReducer.userData);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(allActions.getUserAction.getUserData());
-  }, []);
+  // const isLogged = useSelector((state) => state.loginReducer.isLoggedIn);
+  // console.log("////", isLogged);
+  // const manager = useSelector(
+  //   (state) => state.loginReducer.login.user.roles[0].name
+  // );
+  // console.log("////", manager);
+
   return (
     <div className="app">
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/signup" exact component={SignUp} />
-        <Route path="/worklog" exact component={DashBoard} />
+        <Route path="/admindashboard" exact component={AdminDashBoard} />
+        <Route path="/managerdashboard" exact component={ManagerDashBoard} />
+        <Route path="/userdashboard" exact component={UserDashBoard} />
         <Route path="/createuser" exact component={CreateUser} />
       </Switch>
     </div>

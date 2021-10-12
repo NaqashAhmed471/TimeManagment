@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import allActions from "../../../Redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import styles from "./UserDashboardUi.module.css";
 
 const UserDashboardUi = () => {
@@ -17,8 +17,15 @@ const UserDashboardUi = () => {
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(allActions.createWorkLogAction.createWorkLogData(userRecord));
+    dispatch(allActions?.createWorkLogAction?.createWorkLogData(userRecord));
   };
+  useEffect(() => {
+    dispatch(allActions.getUserLogAction.getUserLogData());
+  }, []);
+  const logUsers = useSelector(
+    (state) => state?.getUserLogReducer?.logUserData?.workLogs?.data
+  );
+  console.log("logUsers", logUsers);
 
   const clickHandler = () => {
     if (hamburg === false) {
@@ -108,19 +115,23 @@ const UserDashboardUi = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="text-center">
-                  <td>1</td>
-                  <td>test</td>
-                  <td>test</td>
-                  <td>test</td>
-                  <td>
-                    <button className="edit-button">Edit</button>
-                  </td>
+                {logUsers?.map((value, index) => {
+                  return (
+                    <tr className="text-center" key={index}>
+                      <td>{value.id}</td>
+                      <td>{value.log_date}</td>
+                      <td>{value.hours}</td>
+                      <td>{value.description}</td>
+                      <td>
+                        <button className="edit-button">Edit</button>
+                      </td>
 
-                  <td>
-                    <button className="delete-button">Delete</button>
-                  </td>
-                </tr>
+                      <td>
+                        <button className="delete-button">Delete</button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

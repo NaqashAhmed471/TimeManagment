@@ -1,18 +1,28 @@
-import React , {useState} from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ManagerDashboardUi.module.css";
+import allActions from "../../../Redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const ManagerDashboardUI = () => {
+  const [hamburg, setHamburg] = useState(false);
 
-    const [hamburg, setHamburg] = useState(false);
-
-    const clickHandler = () => {
-      if (hamburg === false) {
-        setHamburg(true);
-      } else {
-        setHamburg(false);
-      }
+  const clickHandler = () => {
+    if (hamburg === false) {
+      setHamburg(true);
+    } else {
+      setHamburg(false);
+    }
   };
-  
+  const regularUser = useSelector(
+    (state) => state?.getUserReducer?.userData?.users?.data
+  );
+  console.log("usersssssssssssssss", regularUser);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(allActions.getUserAction.getUserData());
+  }, []);
+
   return (
     <div className={styles.dashboard_wrapper}>
       <div className={styles.navbar_wrapper}>
@@ -20,7 +30,10 @@ const ManagerDashboardUI = () => {
           <h2>Dashboard</h2>
         </div>
         <div className={styles.menuItem_wrapper}>
-          <button className={styles.create_btn}>Create User</button>
+          <Link to="/createuser">
+            {" "}
+            <button className={styles.create_btn}>Create User</button>{" "}
+          </Link>
           <button className={styles.logout_btn}>Log Out</button>
           <button className={styles.humberg_button} onClick={clickHandler}>
             <span
@@ -68,26 +81,30 @@ const ManagerDashboardUI = () => {
                   <th scope="col">#</th>
                   <th scope="col">First</th>
                   <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
+                  <th scope="col">Email</th>
                   <th scope="col">Action</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr className="text-center">
-                  <td>test</td>
-                  <td>test</td>
-                  <td>test</td>
-                  <td>test</td>
-                  <td>
-                    <button className="edit-button">Edit</button>
-                  </td>
+              {regularUser?.map((user, index) => {
+                return (
+                  <tbody>
+                    <tr className="text-center" key={index}>
+                      <td>{user.id}</td>
+                      <td>{user.firstName}</td>
+                      <td>{user.lastName}</td>
+                      <td>{user.email}</td>
+                      <td>
+                        <button className="edit-button">Edit</button>
+                      </td>
 
-                  <td>
-                    <button className="delete-button">Delete</button>
-                  </td>
-                </tr>
-              </tbody>
+                      <td>
+                        <button className="delete-button">Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })}
             </table>
           </div>
         </div>

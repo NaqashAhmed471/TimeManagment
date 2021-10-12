@@ -1,18 +1,28 @@
-import React , {useState} from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./AdminDashboardUi.module.css";
+import allActions from "../../../Redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const AdminDashboardUi = () => {
+  const [hamburg, setHamburg] = useState(false);
 
-    const [hamburg, setHamburg] = useState(false);
-
-    const clickHandler = () => {
-      if (hamburg === false) {
-        setHamburg(true);
-      } else {
-        setHamburg(false);
-      }
+  const clickHandler = () => {
+    if (hamburg === false) {
+      setHamburg(true);
+    } else {
+      setHamburg(false);
+    }
   };
-  
+  const users = useSelector(
+    (state) => state?.getUserReducer?.userData?.users?.data
+  );
+  console.log("AdminUsers", users);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(allActions.getUserAction.getUserData());
+  }, []);
+
   return (
     <div className={styles.dashboard_wrapper}>
       <div className={styles.navbar_wrapper}>
@@ -20,8 +30,13 @@ const AdminDashboardUi = () => {
           <h2>Dashboard</h2>
         </div>
         <div className={styles.menuItem_wrapper}>
-          <button className={styles.create_btn}>Create Manager</button>
-          <button className={styles.create_btn}>Create User</button>
+          <Link to="/signup">
+            {" "}
+            <button className={styles.create_btn}>Create Manager</button>{" "}
+          </Link>
+          <Link to="/createuser">
+            <button className={styles.create_btn}>Create User</button>
+          </Link>
           <button className={styles.logout_btn}>Log Out</button>
           <button className={styles.humberg_button} onClick={clickHandler}>
             <span
@@ -57,65 +72,40 @@ const AdminDashboardUi = () => {
       <div>
         <div className="row justify-content-center">
           <div className="col-8">
-            <h3 className="text-center mb-4">Mangers List</h3>
+            <h3 className="text-center mb-4">List</h3>
             <table className="table">
               <thead className={styles.thead}>
                 <tr className="text-center">
                   <th scope="col">#</th>
                   <th scope="col">First</th>
                   <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Role</th>
                   <th scope="col">Action</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr className="text-center">
-                  <td>test</td>
-                  <td>test</td>
-                  <td>test</td>
-                  <td>test</td>
-                  <td>
-                    <button className="edit-button">Edit</button>
-                  </td>
+              {users?.map((user, index) => {
+                // console.log("roles", user.roles[0].name);
+                return (
+                  <tbody key={index}>
+                    <tr className="text-center">
+                      <td>{user.id}</td>
+                      <td>{user.firstName}</td>
+                      <td>{user.lastName}</td>
+                      <td>{user.email}</td>
+                      <td>{user.roles[0].name}</td>
+                      <td>
+                        <button className="edit-button">Edit</button>
+                      </td>
 
-                  <td>
-                    <button className="delete-button">Delete</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div className="row justify-content-center mt-5">
-          <div className="col-8">
-            <h3 className="text-center mb-4">Users List</h3>
-            <table className="table">
-              <thead className={styles.thead}>
-                <tr className="text-center">
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                  <th scope="col">Action</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="text-center">
-                  <td>test</td>
-                  <td>test</td>
-                  <td>test</td>
-                  <td>test</td>
-                  <td>
-                    <button className="edit-button">Edit</button>
-                  </td>
-
-                  <td>
-                    <button className="delete-button">Delete</button>
-                  </td>
-                </tr>
-              </tbody>
+                      <td>
+                        <button className="delete-button">Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                );
+              })}
             </table>
           </div>
         </div>

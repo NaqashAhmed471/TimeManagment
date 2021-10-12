@@ -2,15 +2,15 @@
   max-width: 100%;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .dashboard_wrapper .filtring_wrapper {
   display: flex;
   align-items: baseline;
   justify-content: center;
-  margin: 0 auto;
-  padding: 30px 30px;
-  margin: 30px 0px;
+  margin: 30px auto;
+  padding: 0 30px;
 }
 
 .dashboard_wrapper .filtring_wrapper input {
@@ -39,7 +39,7 @@
   align-items: center;
   justify-content: space-between;
   color: #ffffff;
-  padding: 30px 30px;
+  padding: 15px 30px;
   width: 100%;
   background: rgb(31, 110, 135);
   background: linear-gradient(
@@ -64,18 +64,20 @@
 
 .menuItem_wrapper .create_btn {
   background-color: #ffffff;
-  border-radius: 10px;
-  padding: 6px 12px;
+  padding: 6px 15px;
   border: none;
   color: #08546c;
+  outline: none;
+  border-radius: 20px;
 }
 
 .menuItem_wrapper .logout_btn {
   background-color: rgb(190, 44, 44);
-  border-radius: 10px;
-  padding: 6px 12px;
+  padding: 6px 15px;
   border: none;
   color: #ffffff;
+  outline: none;
+  border-radius: 20px;
 }
 
 .humberg_button {

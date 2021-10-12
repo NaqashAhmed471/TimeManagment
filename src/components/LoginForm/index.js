@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import allActions from "../../Redux";
 import { useDispatch } from "react-redux";
 import style from "./Login.module.css";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   // Login Form
@@ -14,35 +15,10 @@ const Login = () => {
     e.preventDefault();
     dispatch(allActions.loginAction.postData(login));
   };
-  // Register Form
-  const [signUp, setSignUp] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
-  });
-  const signUpChange = (e) => {
-    setSignUp({ ...signUp, [e.target.name]: e.target.value });
-  };
-  const signUpHandler = (e) => {
-    e.preventDefault();
-    dispatch(allActions.signUpAction.signUpData(signUp));
-  };
-  // Card Rotations
-  const [card, setCard] = useState(true);
-  const openRegister = () => {
-    setCard(!card);
-  };
-  const openLogin = () => {
-    setCard(!card);
-  };
   return (
     <div className={style.form_wrapper}>
       <div className={style.card}>
-        <div
-          className={card ? `${style.inner_box_rotate}` : `${style.inner_box}`}
-        >
+        <div className={style.inner_box_rotate}>
           <div className={style.card_front}>
             <h2>LOGIN</h2>
             <form>
@@ -74,70 +50,13 @@ const Login = () => {
               <input type="checkbox" />
               <span>Remember Me</span>
             </form>
-            <button type="button" className={style.btn} onClick={openRegister}>
-              I'm New Here
-            </button>
+            <Link to="/signup">
+              {" "}
+              <button type="button" className={style.btn}>
+                I'm New Here
+              </button>{" "}
+            </Link>
             <a href="#/">Forgot Password</a>
-          </div>
-          <div className={style.card_back}>
-            <h2>REGISTER</h2>
-            <form>
-              <input
-                type="text"
-                name="firstName"
-                value={signUp.firstName}
-                onChange={signUpChange}
-                className={style.input_box}
-                placeholder="Firstname"
-              />
-              <input
-                type="text"
-                name="lastName"
-                value={signUp.lastName}
-                onChange={signUpChange}
-                className={style.input_box}
-                placeholder="Lastname"
-              />
-              <input
-                type="email"
-                name="email"
-                value={signUp.email}
-                onChange={signUpChange}
-                className={style.input_box}
-                placeholder="Your Email Id"
-                required
-              />
-              <input
-                type="password"
-                name="password"
-                value={signUp.password}
-                onChange={signUpChange}
-                className={style.input_box}
-                placeholder="Password"
-                required
-              />
-              <input
-                type="password"
-                name="password_confirmation"
-                value={signUp.password_confirmation}
-                onChange={signUpChange}
-                className={style.input_box}
-                placeholder="Conform Password"
-                required
-              />
-              <button
-                type="submit"
-                className={style.submit_btn}
-                onClick={signUpHandler}
-              >
-                Submit
-              </button>
-              <input type="checkbox" />
-              <span>Remember Me</span>
-            </form>
-            <button type="button" className={style.btn} onClick={openLogin}>
-              I've an account
-            </button>
           </div>
         </div>
       </div>
