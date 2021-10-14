@@ -38,7 +38,6 @@ const getUserLogData = () => {
       })
       .then((response) => {
         const userLogData = response.data;
-        console.log("...", userLogData);
         dispatch(getUserLogSuccess(userLogData));
       })
       .catch((error) => {

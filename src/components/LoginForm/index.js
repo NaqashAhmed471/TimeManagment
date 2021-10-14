@@ -1,20 +1,26 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import allActions from "../../Redux";
 import { useDispatch } from "react-redux";
 import style from "./Login.module.css";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
-  // Login Form
   const [login, setLogin] = useState({ email: "", password: "" });
   const loginChange = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
   };
+  let history = useHistory();
+  // Selector for GetUserReducer
+  // let role = useSelector(
+  //   (state) => state?.loginReducer?.login?.user?.roles[0]?.name
+  // );
   const dispatch = useDispatch();
   const loginHandler = (e) => {
     e.preventDefault();
-    dispatch(allActions.loginAction.postData(login));
-  };
+    dispatch(allActions.loginAction.postData(login,history));
+    setLogin({ email: "", password: "" });
+};
   return (
     <div className={style.form_wrapper}>
       <div className={style.card}>
@@ -31,6 +37,7 @@ const Login = () => {
                 placeholder="Your Email Id"
                 required
               />
+
               <input
                 type="password"
                 name="password"

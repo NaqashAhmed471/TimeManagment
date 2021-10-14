@@ -1,7 +1,12 @@
 import React from "react";
 import style from "./CreateUserUi.module.css";
+import {useHistory} from 'react-router-dom';
 
 const CreateUserUi = ({ createData, onChangeHandler, onSubmitHandler }) => {
+    const history =useHistory();
+   const dashboardChange =()=>{
+    history.goBack();
+  }
   return (
     <div className={style.form_wrapper}>
       <div className={style.card}>
@@ -12,7 +17,7 @@ const CreateUserUi = ({ createData, onChangeHandler, onSubmitHandler }) => {
               <input
                 type="text"
                 name="firstName"
-                value={createData.firstName}
+                value={createData.firstName || ""}
                 onChange={onChangeHandler}
                 className={style.input_box}
                 placeholder="Firstname"
@@ -20,7 +25,7 @@ const CreateUserUi = ({ createData, onChangeHandler, onSubmitHandler }) => {
               <input
                 type="text"
                 name="lastName"
-                value={createData.lastName}
+                value={createData.lastName || ""}
                 onChange={onChangeHandler}
                 className={style.input_box}
                 placeholder="Lastname"
@@ -28,7 +33,7 @@ const CreateUserUi = ({ createData, onChangeHandler, onSubmitHandler }) => {
               <input
                 type="email"
                 name="email"
-                value={createData.email}
+                value={createData.email || ""}
                 onChange={onChangeHandler}
                 className={style.input_box}
                 placeholder="Your Email Id"
@@ -37,7 +42,7 @@ const CreateUserUi = ({ createData, onChangeHandler, onSubmitHandler }) => {
               <input
                 type="password"
                 name="password"
-                value={createData.password}
+                value={createData.password || ""}
                 onChange={onChangeHandler}
                 className={style.input_box}
                 placeholder="Password"
@@ -46,7 +51,7 @@ const CreateUserUi = ({ createData, onChangeHandler, onSubmitHandler }) => {
               <input
                 type="password"
                 name="password_confirmation"
-                value={createData.password_confirmation}
+                value={createData.password_confirmation || ""}
                 onChange={onChangeHandler}
                 className={style.input_box}
                 placeholder="Conform Password"
@@ -55,7 +60,7 @@ const CreateUserUi = ({ createData, onChangeHandler, onSubmitHandler }) => {
               <input
                 type="text"
                 name="userType"
-                value={createData.userType}
+                value={createData.userType || ""}
                 onChange={onChangeHandler}
                 className={style.input_box}
                 placeholder="UserType"
@@ -64,9 +69,11 @@ const CreateUserUi = ({ createData, onChangeHandler, onSubmitHandler }) => {
               <button type="submit" className={style.submit_btn}>
                 Submit
               </button>
-              <input type="checkbox" />
-              <span>Remember Me</span>
+             
             </form>
+             <button type="button" className={style.back} onClick={dashboardChange}>
+                Go Back To Dashboard
+              </button>
           </div>
         </div>
       </div>

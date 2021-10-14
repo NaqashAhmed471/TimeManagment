@@ -32,7 +32,6 @@ const signUpData = (signUp) => {
       })
       .then((response) => {
         const signUpData = response.data;
-        console.log("...", signUpData);
         dispatch(signUpSuccess(signUpData));
       })
       .catch((error) => {
@@ -42,9 +41,10 @@ const signUpData = (signUp) => {
   };
 };
 
-export default {
+const exp = {
   signUpRequest,
   signUpSuccess,
   signUpFailure,
   signUpData,
 };
+export default exp;

@@ -23,6 +23,13 @@ const CreateUser = () => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     dispatch(allActions.createRegularUserAction.regularUserData(createData));
+    setCreateData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+    });
   };
   return (
     <CreateUserUi

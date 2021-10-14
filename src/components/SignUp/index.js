@@ -3,8 +3,10 @@ import allActions from "../../Redux";
 import { useDispatch } from "react-redux";
 import style from "./SignUp.module.css";
 import { Link } from "react-router-dom";
+import {useHistory} from 'react-router-dom';
 
 const SignUp = () => {
+  const history =useHistory();
   const [signUp, setSignUp] = useState({
     firstName: "",
     lastName: "",
@@ -12,6 +14,9 @@ const SignUp = () => {
     password: "",
     password_confirmation: "",
   });
+  const dashboardChange =()=>{
+    history.goBack();
+  }
   const signUpChange = (e) => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value });
   };
@@ -19,6 +24,13 @@ const SignUp = () => {
   const signUpHandler = (e) => {
     e.preventDefault();
     dispatch(allActions.signUpAction.signUpData(signUp));
+    setSignUp({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+    });
   };
   return (
     <div className={style.form_wrapper}>
@@ -73,8 +85,6 @@ const SignUp = () => {
               <button type="submit" className={style.submit_btn}>
                 Submit
               </button>
-              <input type="checkbox" />
-              <span>Remember Me</span>
             </form>
             <Link to="/">
               {" "}
@@ -82,6 +92,12 @@ const SignUp = () => {
                 I've an account
               </button>{" "}
             </Link>
+             
+           
+              <button type="button" className={style.back} onClick={dashboardChange}>
+                Go Back To Dashboard
+              </button>
+           
           </div>
         </div>
       </div>

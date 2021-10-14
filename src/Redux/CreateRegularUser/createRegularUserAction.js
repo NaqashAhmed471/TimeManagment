@@ -26,7 +26,6 @@ const createUserFailure = (error) => {
 };
 
 const regularUserData = (createData) => {
-  console.log("///////////", createData);
   let token = localStorage.getItem("token");
   return (dispatch) => {
     dispatch(createUserRequest);
@@ -39,7 +38,6 @@ const regularUserData = (createData) => {
       })
       .then((response) => {
         const userData = response.data;
-        console.log("...", userData);
         dispatch(createUserSuccess(userData));
       })
       .catch((error) => {

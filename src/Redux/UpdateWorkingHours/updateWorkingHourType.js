@@ -1,0 +1,3 @@
+export const HOURS_REQUEST = "HOURS_REQUEST";
+export const HOURS_SUCCESS = "HOURS_SUCCESS";
+export const HOURS_FAILURE = "HOURS_FAILURE";

@@ -21,7 +21,7 @@ const postFailure = (error) => {
   };
 };
 
-const postData = (login) => {
+const postData = (login, history) => {
   return (dispatch) => {
     dispatch(postRequest);
     axios
@@ -33,10 +33,17 @@ const postData = (login) => {
       .then((response) => {
         const loginData = response.data;
         let token = loginData.token;
-        console.log("...", loginData);
-        console.log("///", loginData.token);
+        const role = loginData.user.roles[0].name;
         dispatch(postSuccess(loginData));
         localStorage.setItem("token", token);
+        if (role === "admin") {
+          history.push("/admindashboard");
+        } else if(role === "manager") {
+          history.push("/managerdashboard");
+        }
+        else if (role === "user"){
+          history.push("/userdashboard");
+        }
       })
       .catch((error) => {
         const errorMsg = error.message;
@@ -45,9 +52,10 @@ const postData = (login) => {
   };
 };
 
-export default {
+const exp = {
   postRequest,
   postSuccess,
   postFailure,
   postData,
 };
+export default exp;

@@ -26,7 +26,6 @@ const createLogFailure = (error) => {
 };
 
 const createWorkLogData = (userRecord) => {
-  console.log("///////////", userRecord);
   let token = localStorage.getItem("token");
   return (dispatch) => {
     dispatch(createLogRequest);
@@ -39,7 +38,6 @@ const createWorkLogData = (userRecord) => {
       })
       .then((response) => {
         const userData = response.data;
-        console.log("...", userData);
         dispatch(createLogSuccess(userData));
       })
       .catch((error) => {

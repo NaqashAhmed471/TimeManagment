@@ -105,7 +105,7 @@ form .input_box {
   width: 100%;
   background: transparent;
   border: 1px solid #fff;
-  margin: 35px 0 10px;
+  margin: 15px 0 10px;
   height: 32px;
   font-size: 12px;
   border-radius: 20px;
@@ -127,6 +127,21 @@ form .input_box {
   position: absolute;
   right: -1px;
   top: -1px;
+}
+.back::after {
+  content: "\27a4";
+  color: #333;
+  line-height: 32px;
+  font-size: 17px;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background: #fff;
+  position: absolute;
+  left: 56px;
+  bottom: 29px;
+  transform: rotate(
+180deg)
 }
 input[type="checkbox"] {
   -webkit-appearance: checkbox;

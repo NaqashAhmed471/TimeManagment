@@ -25,12 +25,12 @@ const deleteUserFailure = (error) => {
   };
 };
 
-const deleteUser = () => {
+const deleteUser = (id) => {
   let token = localStorage.getItem("token");
   return (dispatch) => {
     dispatch(deleteUserRequest);
     axios
-      .get("http://34.210.129.167/api/users", {
+      .delete(`http://34.210.129.167/api/users/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -38,7 +38,6 @@ const deleteUser = () => {
       })
       .then((response) => {
         const userData = response.data;
-        console.log("...", userData);
         dispatch(deleteUserSuccess(userData));
       })
       .catch((error) => {

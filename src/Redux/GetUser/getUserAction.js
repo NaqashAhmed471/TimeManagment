@@ -37,7 +37,6 @@ const getUserData = () => {
       })
       .then((response) => {
         const userData = response.data;
-        console.log("...", userData);
         dispatch(getUserSuccess(userData));
       })
       .catch((error) => {
